@@ -4,6 +4,8 @@ import com.itcorey.vo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,55 @@ public class UserController {
         } catch (AuthenticationException e) {
             return e.getMessage();
         }
-        return "登录成功!";
+        //授权
+        if (subject.hasRole("admin")){
+            return "有admin权限!";
+        }
+        return "无admin权限...!";
     }
+
+
+    /**
+     * 权限 用户必须拥有admin 才能访问
+     * @return
+     */
+    @RequiresRoles("admin")
+    @RequestMapping(value = "/testRole",method = RequestMethod.GET)
+    @ResponseBody
+    public String testRole() {
+    return "testRole success";
+    }
+
+
+
+    /**
+     * 权限 用户必须拥有admin 才能访问
+     * @return
+     */
+    @RequiresPermissions("")
+    @RequestMapping(value = "/testRole1",method = RequestMethod.GET)
+    @ResponseBody
+    public String testRole1() {
+        return "testRole1 success";
+    }
+
+
+    @RequiresPermissions("")
+    @RequestMapping(value = "/testPerms",method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms() {
+        return "testRole1 success";
+    }
+
+
+
+    @RequiresPermissions("")
+    @RequestMapping(value = "/testPerms1",method = RequestMethod.GET)
+    @ResponseBody
+    public String testPerms1() {
+        return "testRole1 success";
+    }
+
 
 
 }
