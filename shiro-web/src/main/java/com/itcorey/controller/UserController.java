@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
-    @RequestMapping(value = "/subLogin", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/subLogin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String subLogin(User user) {
         Subject subject = SecurityUtils.getSubject();
@@ -30,54 +30,36 @@ public class UserController {
             return e.getMessage();
         }
         //授权
-        if (subject.hasRole("admin")){
+        if (subject.hasRole("admin")) {
             return "有admin权限!";
         }
         return "无admin权限...!";
     }
 
 
-    /**
-     * 权限 用户必须拥有admin 才能访问
-     * @return
-     */
-    @RequiresRoles("admin")
-    @RequestMapping(value = "/testRole",method = RequestMethod.GET)
+    @RequestMapping(value = "/testRole", method = RequestMethod.GET)
     @ResponseBody
     public String testRole() {
-    return "testRole success";
+        return "testRole success";
     }
 
-
-
-    /**
-     * 权限 用户必须拥有admin 才能访问
-     * @return
-     */
-    @RequiresPermissions("")
-    @RequestMapping(value = "/testRole1",method = RequestMethod.GET)
+    @RequestMapping(value = "/testRole1", method = RequestMethod.GET)
     @ResponseBody
     public String testRole1() {
         return "testRole1 success";
     }
 
-
-    @RequiresPermissions("")
-    @RequestMapping(value = "/testPerms",method = RequestMethod.GET)
+    @RequestMapping(value = "/testPerms", method = RequestMethod.GET)
     @ResponseBody
     public String testPerms() {
-        return "testRole1 success";
+        return "testPerms success";
     }
 
-
-
-    @RequiresPermissions("")
-    @RequestMapping(value = "/testPerms1",method = RequestMethod.GET)
+    @RequestMapping(value = "/testPerms1", method = RequestMethod.GET)
     @ResponseBody
     public String testPerms1() {
-        return "testRole1 success";
+        return "testPerms1 success";
     }
-
 
 
 }
