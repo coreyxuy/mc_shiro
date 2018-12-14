@@ -10,7 +10,7 @@ public class User {
 
     private String password;
 
-    private Boolean rememberMe;
+    private boolean rememberMe;
 
     public String getUsername() {
         return username;
@@ -28,11 +28,11 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getRememberMe() {
+    public boolean isRememberMe() {
         return rememberMe;
     }
 
-    public void setRememberMe(Boolean rememberMe) {
+    public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
     }
 }

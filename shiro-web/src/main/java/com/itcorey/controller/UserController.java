@@ -25,8 +25,11 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
+            // 设置 shiro 记住我功能
+            token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             return e.getMessage();
         }
         //授权
@@ -35,7 +38,6 @@ public class UserController {
         }
         return "无admin权限...!";
     }
-
 
     @RequestMapping(value = "/testRole", method = RequestMethod.GET)
     @ResponseBody
